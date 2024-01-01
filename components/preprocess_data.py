@@ -1,4 +1,4 @@
-from config.config import base_image, train_ratio
+from config.config import base_image
 from kfp.v2 import dsl
 from kfp.v2.dsl import Dataset, Input, Output
 
@@ -6,7 +6,8 @@ from kfp.v2.dsl import Dataset, Input, Output
 def preprocess_data(
     input_dataset: Input[Dataset], 
     train_dataset: Output[Dataset],
-    test_dataset: Output[Dataset]
+    test_dataset: Output[Dataset],
+    train_ratio: float = 0.7,  # Updated to reflect the 70:30 split
 ):
     """
     Preprocess data by partitioning it into training and testing sets.

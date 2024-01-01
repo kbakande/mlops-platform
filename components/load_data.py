@@ -3,7 +3,9 @@ from kfp.v2 import dsl
 from kfp.v2.dsl import Dataset, Output
 
 @dsl.component(base_image=base_image)
-def load_data(output_dataset: Output[Dataset]):
+def load_data(gcs_url: str, 
+              output_dataset: Output[Dataset]
+              ):
     """
     Download data from a GCS URL and save it to the specified path as a Dataset.
     """
