@@ -61,3 +61,37 @@ mlplatform_project/
 ```bash
 make run_pipeline
 ```
+
+* Run Tests:
+
+```bash
+make run_tests
+```
+
+* Clean Temporary Files:
+
+```bash
+make clean
+```
+
+* Display Help Information:
+
+```bash
+make help
+```
+
+## Dependencies
+
+    Key Python libraries and frameworks used in this project:
+
+* Pandas
+* NumPy
+* Scikit-learn
+* XGBoost
+* LightGBM
+* Google Cloud AI Platform
+* Pytest for testing
+* Kubeflow Pipelines (KFP)
+
+## Author
+[Kabeer Akande](https://www.linkedin.com/in/koakande/)
