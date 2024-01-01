@@ -95,36 +95,51 @@
    make help
    ```
 
-   ## Continuous Integration and Deployment with GitHub Actions
+   ## CI/CD with GitHub Actions
 
-   This project leverages GitHub Actions for automated Continuous Integration (CI) and Continuous Deployment (CD) to Vertex AI. The configured workflow automates the process of testing, building, and deploying the ML pipeline, ensuring a streamlined and error-free deployment process.
+This project uses GitHub Actions for automated testing, building, and deploying to Vertex AI. The workflow, defined in `.github/workflows/main.yml`, includes:
 
-   ### Workflow Overview
+- **Code Checkout**: Retrieves the latest code from the main branch.
+- **Google Cloud Authentication**: Uses service account keys for secure access to GCP services.
+- **Dependency Installation**: Sets up the environment and installs dependencies with Poetry.
+- **Pipeline Operations**: Compiles and deploys the ML pipeline to Vertex AI.
 
-   The `.github/workflows/main.yml` file defines the GitHub Actions workflow with the following key steps:
+The workflow triggers on push to the main branch or can be manually executed, ensuring consistent and reliable deployment processes.
 
-   1. **Checkout Code**: Checks out the repository code, making it available for the workflow.
+## Setting Up Google Cloud Platform (GCP) Services
 
-   2. **Authenticate with Google Cloud**: Uses `google-github-actions/auth` action to authenticate with Google Cloud using the provided service account key. This step is crucial for allowing subsequent steps to interact with Google Cloud services.
+To run and deploy the `MLPlatform` pipeline, you need to set up several services on Google Cloud Platform. Follow these instructions to configure the required GCP services:
 
-   3. **Set up Cloud SDK**: Sets up the Google Cloud SDK, preparing the environment for interactions with Google Cloud services.
+### Prerequisites
 
-   4. **Use gcloud CLI**: Demonstrates the successful setup of the Cloud SDK by running `gcloud info`.
+1. **Google Cloud Account**: Ensure you have a Google Cloud account. If you don't have one, you can [sign up here](https://cloud.google.com/).
 
-   5. **Install Dependencies**: Installs project dependencies managed by Poetry, ensuring all required Python packages are available.
+2. **Google Cloud Project**: Create a new project or select an existing project in the [Google Cloud Console](https://console.cloud.google.com/).
 
-   6. **Compile and Deploy Pipeline to Vertex AI**: Runs the `mlpipeline.py` script, which compiles the Kubeflow pipeline to JSON and deploys it to Vertex AI. This step is critical for automating the deployment of the machine learning pipeline to the cloud.
+### Required Services and Configurations
 
-   ### Triggering the Workflow
+1. **Enable APIs**: Make sure the following APIs are enabled for your project:
+   - AI Platform Training & Prediction API
+   - Compute Engine API
+   - Container Registry API
+   - You can enable these APIs in the [APIs & Services Dashboard](https://console.cloud.google.com/apis/dashboard).
 
-   The workflow is configured to trigger on two events:
+2. **Service Account**: Create a service account with the necessary permissions to access the required services. Assign roles that include permissions for AI Platform, Compute Engine, and any other services your pipeline interacts with.
+   - Navigate to [IAM & Admin > Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts) in the Google Cloud Console.
+   - Create a new service account and grant it the necessary roles.
+   - Generate and download a JSON key file for this service account. This file will be used for authentication in your CI/CD pipeline.
 
-   - **Push to Main Branch**: Automatically starts the workflow whenever changes are pushed to the `main` branch.
-   - **Manual Dispatch**: Allows for manual triggering of the workflow from the GitHub repository's Actions tab, providing flexibility for on-demand deployments.
+3. **Storage Bucket**: Create a Google Cloud Storage bucket to store pipeline artifacts and data. This bucket will serve as the `PIPELINE_ROOT`.
+   - Go to the [Cloud Storage Browser](https://console.cloud.google.com/storage/browser) in the Google Cloud Console and create a new bucket.
 
-   ### Security and Configuration
+4. **Set up Vertex AI**: If you're using Vertex AI, ensure that it is set up and configured in your project. Visit the [Vertex AI section](https://console.cloud.google.com/vertex-ai) in the Google Cloud Console.
 
-   Sensitive information, such as service account keys and project IDs, are securely stored in GitHub Secrets and accessed as environment variables within the workflow. This approach ensures security best practices by keeping sensitive data out of the codebase.
+5. **Configure GitHub Secrets**: Add the service account JSON key and other necessary configuration values (like project ID, bucket name, etc.) as secrets in your GitHub repository to use them in GitHub Actions.
+
+### Using the GCP Services in the Project
+
+Once the GCP services are set up, update the project's configuration files and environment variables to match your GCP settings. Ensure the paths, project IDs, bucket names, and other GCP-specific values are correctly set.
+
 
    ## Dependencies
 
