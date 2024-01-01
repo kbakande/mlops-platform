@@ -1,6 +1,16 @@
    # MLPlatform: Machine Learning Pipeline on GCP
    `MLPlatform` is a robust machine learning pipeline designed to streamline ML workflows on Google Cloud Platform (GCP) resources. Following best practices in MLOps and DevOps, it offers a structured and efficient approach to managing data loading, preprocessing, model training, evaluation, and deployment.
 
+   ## Key Features
+   * Kubeflow Pipeline: For data loading, preprocessing, model training, evaluation, and deployment.
+   * Pytest: Automated component testing to ensure robustness.
+   * Makefile: Streamlining task execution for efficiency.
+   * Precommit Hook: For commit validation checks.
+   * GitHub Actions: Automating the CI/CD workflow.
+   * Poetry: Dependable dependency management.
+   * Docstring and Static Typing: For readability and automated documentation generation (e.g., using Sphinx).
+   * Modular Design: To maintain a clear separation of concerns and flexibility.
+
    ## Pipeline Visualization
 
    Below is a visualization of the MLPlatform pipeline components as executed on Vertex AI:
