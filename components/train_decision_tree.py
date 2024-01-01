@@ -1,4 +1,3 @@
-# components/train_decision_tree.py
 from config.config import base_image
 from kfp.v2 import dsl
 from kfp.v2.dsl import Dataset, Input, Model, Output
