@@ -1,6 +1,21 @@
 # MLPlatform: Machine Learning Pipeline on GCP
 `MLPlatform` is a robust machine learning pipeline designed to streamline ML workflows on Google Cloud Platform (GCP) resources. Following best practices in MLOps and DevOps, it offers a structured and efficient approach to managing data loading, preprocessing, model training, evaluation, and deployment.
 
+## Pipeline Visualization
+
+Below is a visualization of the MLPlatform pipeline components as executed on Vertex AI:
+
+![MLPlatform Pipeline on Vertex AI](images/mlpipeline.png)
+
+The diagram illustrates the sequential and parallel processing of tasks within the pipeline:
+
+- `load-data`: Fetches and loads data into the pipeline.
+- `preprocess-data`: Processes the loaded data, preparing it for training.
+- `train-decision-tree` and `train-random-frost`: Train two separate models in parallel.
+- `evaluate-model`: Evaluates both models and selects the best performing one.
+- `deploy-model`: Deploys the chosen model to a Vertex AI endpoint for serving.
+
+Each component runs in a containerized environment, ensuring isolation and scalability.
 ## Project Structure
 
 ```graphql
