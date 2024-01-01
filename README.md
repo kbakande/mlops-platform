@@ -3,6 +3,7 @@
 
 ## Project Structure
 
+```graphql
 mlplatform_project/
 │
 ├── components/               # Pipeline components (data load, preprocess, train, etc.)
@@ -28,7 +29,7 @@ mlplatform_project/
 ├── poetry.lock               # Poetry lock file for dependencies management
 ├── Makefile                  # Makefile for easy execution of tasks
 └── README.md                 # Project overview and documentation
-
+```
 ## Installation
 
 1. Clone the Repository:
