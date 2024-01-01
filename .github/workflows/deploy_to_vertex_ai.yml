@@ -1,0 +1,38 @@
+name: Deploy to Vertex AI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Install Dependencies
+        run: |
+          poetry install
+
+      - name: Compile Kubeflow Pipeline to JSON
+        run: |
+          python mlpipeline.py --compile-json
+
+      - name: Deploy Pipeline to Vertex AI
+        run: |
+          gcloud ai pipelines create \
+            --region=${{ secrets.GCP_REGION }} \
+            --pipeline-root=${{ secrets.GCP_PIPELINE_ROOT }} \
+            --project=${{ secrets.GCP_PROJECT_ID }} \
+            --display-name=mlplatform-pipeline \
+            --template-path=./mlplatform_pipeline.json
