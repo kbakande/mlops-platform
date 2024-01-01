@@ -48,7 +48,16 @@ mlplatform_project/
 3. Install Dependencies:
 
    Use [Poetry](https://python-poetry.org/) for managing Python dependencies:
-   
+
    ```bash
    poetry install
    ```
+
+## Usage
+    The project includes a Makefile for easy execution of tasks:
+
+* Run the ML Pipeline:
+
+```bash
+make run_pipeline
+```
