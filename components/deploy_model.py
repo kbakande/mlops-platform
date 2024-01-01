@@ -6,9 +6,9 @@ from kfp.v2.dsl import Model, Input
 @dsl.component(base_image=base_image)
 def deploy_model(
     optimal_model_name: str,
-    project: str = project_id,
-    region: str = region,
-    serving_image: str = serving_image,
+    project: str,
+    region: str,
+    serving_image: str,
     rf_model: Input[Model],
     dt_model: Input[Model],
 ) -> NamedTuple('Outputs', [('model_resource_name', str)]):
