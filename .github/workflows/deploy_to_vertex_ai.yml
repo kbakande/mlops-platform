@@ -26,6 +26,15 @@ jobs:
           poetry install
 
       - name: Compile Kubeflow Pipeline to JSON
+        env:
+          PIPELINE_ROOT: ${{ secrets.PIPELINE_ROOT }}
+          CONTAINER_IMAGE: ${{ secrets.CONTAINER_IMAGE }}
+          SERVING_IMAGE: ${{ secrets.SERVING_IMAGE }}
+          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+          ARTIFACT_REPO: ${{ secrets.ARTIFACT_REPO }}
+          GCS_URL: ${{ secrets.GCS_URL }}
+          TRAIN_RATIO: ${{ secrets.TRAIN_RATIO }}
+          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
           poetry run python mlpipeline.py --compile-json
 
