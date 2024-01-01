@@ -34,9 +34,21 @@ mlplatform_project/
 
 1. Clone the Repository:
 
- Clone the `mlplatform` repository to your local machine.
+   Clone the `mlplatform` repository to your local machine.
 
  ```bash
  git clone git@github.com:kbakande/MLOPS.git
  cd mlplatform_project
  ```
+
+2. Install Python:
+
+   Ensure you have Python >= 3.9 installed. You can download it from [python.org](https://www.python.org/).
+
+3. Install Dependencies:
+
+   Use [Poetry](https://python-poetry.org/) for managing Python dependencies:
+   
+   ```bash
+   poetry install
+   ```
