@@ -28,10 +28,11 @@ jobs:
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
+
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v0
         with:
-          project_id: ${{ env.PROJECT_ID }}
-          service_account_key: ${{ env.SERVICE_ACCOUNT_KEY }}
-          export_default_credentials: true
+          credentials_json: ${{ env.SERVICE_ACCOUNT_KEY }}
 
       - name: Install Dependencies
         run: |
