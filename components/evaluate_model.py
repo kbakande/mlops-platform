@@ -1,4 +1,3 @@
-# components/evaluate_model.py
 from config.config import base_image
 from kfp.v2 import dsl
 from typing import NamedTuple
