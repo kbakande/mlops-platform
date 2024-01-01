@@ -1,4 +1,3 @@
-# components/deploy_model.py
 from config.config import base_image, project_id, region, serving_image
 from kfp.v2 import dsl
 from typing import NamedTuple
