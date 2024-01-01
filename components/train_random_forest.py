@@ -14,6 +14,7 @@ def train_random_forest(
     import pandas as pd
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.model_selection import RandomizedSearchCV
+    from sklearn.metrics import accuracy_score
     from sklearn.pipeline import Pipeline
     from sklearn.compose import ColumnTransformer
     from sklearn.preprocessing import StandardScaler, OneHotEncoder
