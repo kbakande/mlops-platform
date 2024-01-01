@@ -42,15 +42,6 @@ jobs:
           pip install poetry
           poetry install
 
-      - name: Compile Kubeflow Pipeline to JSON
+      - name: Compile and Pipeline to Vertex AI
         run: |
-          poetry run python mlpipeline.py --compile-json
-
-      - name: Deploy Pipeline to Vertex AI
-        run: |
-          gcloud ai pipelines create \
-            --region=${{ env.REGION }} \
-            --pipeline-root=${{ env.PIPELINE_ROOT }} \
-            --project=${{ env.PROJECT_ID }} \
-            --display-name=mlplatform-pipeline \
-            --template-path=./mlplatform_pipeline.json
+          poetry run python mlpipeline.py 
