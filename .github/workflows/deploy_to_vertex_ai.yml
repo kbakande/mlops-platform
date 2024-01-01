@@ -6,6 +6,19 @@ on:
       - main
   workflow_dispatch: 
 
+env:
+  PIPELINE_ROOT: ${{ secrets.PIPELINE_ROOT }}
+  CONTAINER_IMAGE: ${{ secrets.CONTAINER_IMAGE }}
+  SERVING_IMAGE: ${{ secrets.SERVING_IMAGE }}
+  SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+  ARTIFACT_REPO: ${{ secrets.ARTIFACT_REPO }}
+  GCS_URL: ${{ secrets.GCS_URL }}
+  TRAIN_RATIO: ${{ secrets.TRAIN_RATIO }}
+  BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
+  REGION: ${{ secrets.REGION }}
+  PROJECT_ID: ${{ secrets.PROJECT_ID }}
+  SERVICE_ACCOUNT_KEY: ${{ secrets.GSA_SA_KEY }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -16,8 +29,8 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ env.PROJECT_ID }}
+          service_account_key: ${{ env.SERVICE_ACCOUNT_KEY }}
           export_default_credentials: true
 
       - name: Install Dependencies
@@ -26,23 +39,14 @@ jobs:
           poetry install
 
       - name: Compile Kubeflow Pipeline to JSON
-        env:
-          PIPELINE_ROOT: ${{ secrets.PIPELINE_ROOT }}
-          CONTAINER_IMAGE: ${{ secrets.CONTAINER_IMAGE }}
-          SERVING_IMAGE: ${{ secrets.SERVING_IMAGE }}
-          SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
-          ARTIFACT_REPO: ${{ secrets.ARTIFACT_REPO }}
-          GCS_URL: ${{ secrets.GCS_URL }}
-          TRAIN_RATIO: ${{ secrets.TRAIN_RATIO }}
-          BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
         run: |
           poetry run python mlpipeline.py --compile-json
 
       - name: Deploy Pipeline to Vertex AI
         run: |
           gcloud ai pipelines create \
-            --region=${{ secrets.GCP_REGION }} \
-            --pipeline-root=${{ secrets.GCP_PIPELINE_ROOT }} \
-            --project=${{ secrets.GCP_PROJECT_ID }} \
+            --region=${{ env.REGION }} \
+            --pipeline-root=${{ env.PIPELINE_ROOT }} \
+            --project=${{ env.PROJECT_ID }} \
             --display-name=mlplatform-pipeline \
             --template-path=./mlplatform_pipeline.json
