@@ -79,7 +79,7 @@
       ```
 
    ## Usage
-      The project includes a Makefile for easy execution of tasks:
+   The project includes a Makefile for easy execution of tasks:
 
    * Run the ML Pipeline:
 
