@@ -24,7 +24,7 @@ google-cloud-bigquery = "^3.14.1"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.26.0"
-pytest = "^6.2.5"
+pytest = "^7.4.4"
 
 [build-system]
 requires = ["poetry-core"]
