@@ -6,14 +6,17 @@ from components.train_random_forest import train_random_forest
 from components.train_decision_tree import train_decision_tree
 from components.evaluate_model import evaluate_model
 from components.deploy_model import deploy_model
-from config.config import gcs_url, train_ratio, project_id, region, serving_image, service_account
+from config.config import gcs_url, train_ratio, project_id, region, serving_image, service_account, pipeline_root
 
 @pipeline(
     name="ml-platform-pipeline",
     description="A pipeline that performs data loading, preprocessing, model training, evaluation, and deployment",
-    pipeline_root="gs://your-gcs-bucket/pipeline_root"  # Replace with your GCS bucket path
+    pipeline_root= pipeline_root
 )
-def mlplatform_pipeline():
+def mlplatform_pipeline(
+    gcs_url: str = gcs_url,
+    train_ratio: float = train_ratio,
+    ):
     load_data_op = load_data(gcs_url=gcs_url)
     preprocess_data_op = preprocess_data(input_dataset=load_data_op.output, 
                                          train_ratio=train_ratio
@@ -55,6 +58,5 @@ if __name__ == "__main__":
             "gcs_url": gcs_url,
             "train_ratio": train_ratio
         },
-        enable_caching=True,
-        service_account=service_account  # Include the service account here
-    ).submit()
+        enable_caching=True
+    ).submit(service_account=service_account)
