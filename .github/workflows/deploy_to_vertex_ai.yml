@@ -1,3 +1,11 @@
+name: Deploy to Vertex AI
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: 
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -5,17 +13,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
         with:
-          python-version: '3.9'  # Specify your Python version here
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
 
-      - name: Install Poetry
+      - name: Install Dependencies
         run: |
           pip install poetry
-
-      - name: Install dependencies with Poetry
-        run: |
           poetry install
 
       - name: Compile Kubeflow Pipeline to JSON
@@ -23,18 +30,10 @@ jobs:
           poetry run python mlpipeline.py --compile-json
 
       - name: Deploy Pipeline to Vertex AI
-        env:  # Set the environment variables for the gcloud command
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          PIPELINE_ROOT: ${{ secrets.PIPELINE_ROOT }}
-          REGION: ${{ secrets.REGION }}
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
         run: |
-          # First authenticate with gcloud using the service account key
-          echo "$GOOGLE_APPLICATION_CREDENTIALS" | gcloud auth activate-service-account --key-file=-
-          # Then deploy the pipeline to Vertex AI
           gcloud ai pipelines create \
-            --region=$REGION \
-            --pipeline-root=$PIPELINE_ROOT \
-            --project=$PROJECT_ID \
+            --region=${{ secrets.GCP_REGION }} \
+            --pipeline-root=${{ secrets.GCP_PIPELINE_ROOT }} \
+            --project=${{ secrets.GCP_PROJECT_ID }} \
             --display-name=mlplatform-pipeline \
             --template-path=./mlplatform_pipeline.json
