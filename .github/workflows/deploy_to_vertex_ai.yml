@@ -3,7 +3,7 @@ name: Deploy to Vertex AI
 on:
   push:
     branches:
-      - main
+      # - main
   workflow_dispatch: 
 
 env:
