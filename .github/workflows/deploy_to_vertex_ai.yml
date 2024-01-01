@@ -42,6 +42,6 @@ jobs:
           pip install poetry
           poetry install
 
-      - name: Compile and Pipeline to Vertex AI
+      - name: Compile and Deploy Pipeline to Vertex AI
         run: |
           poetry run python mlpipeline.py 
