@@ -17,7 +17,7 @@ env:
   BUCKET_NAME: ${{ secrets.BUCKET_NAME }}
   REGION: ${{ secrets.REGION }}
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
-  SERVICE_ACCOUNT_KEY: '${{ secrets.GSA_SA_KEY }}'
+  SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SA_KEY }}
 
 jobs:
   deploy:
@@ -29,7 +29,7 @@ jobs:
       - id: 'auth'
         uses: 'google-github-actions/auth@v2'
         with:
-          credentials_json: '${{ secrets.GSA_SA_KEY }}'
+          credentials_json: ${{ env.SERVICE_ACCOUNT_KEY }}
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
