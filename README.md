@@ -59,7 +59,7 @@
 
    1. Clone the Repository:
 
-      Clone the `mlplatform` repository to your local machine.
+      Clone the `mlops-platform` repository to your local machine.
 
    ```bash
    git clone git@github.com:kbakande/MLOPS-Platform.git
