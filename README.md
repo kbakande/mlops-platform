@@ -29,7 +29,7 @@
    ## Project Structure
 
    ```graphql
-   mlplatform_project/
+   MLOPS-Platform/
    │
    ├── components/               # Pipeline components (data load, preprocess, train, etc.)
    │   ├── load_data.py
@@ -62,8 +62,8 @@
       Clone the `mlplatform` repository to your local machine.
 
    ```bash
-   git clone git@github.com:kbakande/MLOPS.git
-   cd mlplatform_project
+   git clone git@github.com:kbakande/MLOPS-Platform.git
+   cd MLOPS-Platform
    ```
 
    2. Install Python:
