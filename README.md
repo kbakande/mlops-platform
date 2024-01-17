@@ -26,6 +26,7 @@
    - `deploy-model`: Deploys the chosen model to a Vertex AI endpoint for serving.
 
    Each component runs in a containerized environment, ensuring isolation and scalability.
+   
    ## Project Structure
 
    ```graphql
