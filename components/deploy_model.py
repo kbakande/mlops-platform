@@ -1,3 +1,4 @@
+
 from config.config import base_image, project_id, region, serving_image
 from kfp.v2 import dsl
 from typing import NamedTuple
@@ -32,15 +33,17 @@ def deploy_model(
         # Map additional models if necessary
     }
     model_to_deploy = model_mapping[optimal_model_name]
+    model_name = 'pet-adoption'
 
+    logging.info(f"Model URI: {model_to_deploy.uri}")
     # Upload model to Vertex AI Model Registry
     model_upload = aiplatform.Model.upload(
-        display_name="your-model-display-name",  # Customize as needed
+        display_name=model_name,  
         artifact_uri=model_to_deploy.uri.rpartition('/')[0],
         serving_container_image_uri=serving_image,
-        serving_container_health_route="/v1/models/your-model-name",  # Customize as needed
-        serving_container_predict_route="/v1/models/your-model-name:predict",  # Customize as needed
-        serving_container_environment_variables={"MODEL_NAME": "your-model-name"}  # Customize as needed
+        serving_container_health_route=f"/v1/models/{model_name}",  
+        serving_container_predict_route=f"/v1/models/{model_name}:predict",  
+        serving_container_environment_variables={"MODEL_NAME": model_name}  
     )
 
     logging.info(f"Model uploaded: {model_upload.resource_name}")
