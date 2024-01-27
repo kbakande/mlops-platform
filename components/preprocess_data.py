@@ -1,8 +1,9 @@
+
 from config.config import base_image
 from kfp.v2 import dsl
 from kfp.v2.dsl import Dataset, Input, Output
 
-@dsl.component(base_image=base_image)
+@dsl.component(base_image=base_image) #, packages_to_install=["scikit-learn==1.0"])
 def preprocess_data(
     input_dataset: Input[Dataset], 
     train_dataset: Output[Dataset],
