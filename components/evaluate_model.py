@@ -1,9 +1,10 @@
+
 from config.config import base_image
 from kfp.v2 import dsl
 from typing import NamedTuple
 from kfp.v2.dsl import Dataset, Input, Model, Metrics
 
-@dsl.component(base_image=base_image)
+@dsl.component(base_image=base_image) #, packages_to_install=["scikit-learn==1.0"])
 def evaluate_model(
     test_dataset: Input[Dataset], 
     dt_model: Input[Model],
@@ -35,7 +36,7 @@ def evaluate_model(
     df = pd.read_csv(test_dataset.path)
     X_test = df.iloc[:, :-1]
     y_test = df.iloc[:, -1]
-
+    
     # Convert categorical columns to 'category' data type for X_test
     categorical_cols = X_test.select_dtypes(include=['object']).columns
     X_test[categorical_cols] = X_test[categorical_cols].astype('category')
