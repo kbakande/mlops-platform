@@ -12,7 +12,7 @@ def deploy_model(
     serving_image: str,
     rf_model: Input[Model],
     dt_model: Input[Model],
-) -> NamedTuple('Outputs', [('model_resource_name', str)]):
+) -> NamedTuple('Outputs', [('endpoint_name', str)]):
     """
     Deploy the optimal model to a Vertex AI endpoint.
     """
@@ -48,4 +48,21 @@ def deploy_model(
 
     logging.info(f"Model uploaded: {model_upload.resource_name}")
 
-    return (model_upload.resource_name,)
+    # Create an endpoint
+    endpoint = aiplatform.Endpoint.create(
+        display_name=model_name,
+        project=project,
+        location=region
+    )
+
+    # Deploy model to the endpoint
+    model_deployed = endpoint.deploy(
+        model=model_upload,
+        deployed_model_display_name=model_name,
+        traffic_split={"0": 100},
+        machine_type="n1-standard-4"
+    )
+
+    logging.info(f"Model deployed to endpoint: {endpoint.resource_name}")
+
+    return (endpoint.resource_name,)
