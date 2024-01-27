@@ -1,8 +1,9 @@
+
 from config.config import base_image, gcs_url
 from kfp.v2 import dsl
 from kfp.v2.dsl import Dataset, Output
 
-@dsl.component(base_image=base_image)
+@dsl.component(base_image=base_image) #, packages_to_install=["scikit-learn==1.0"])
 def load_data(gcs_url: str, 
               output_dataset: Output[Dataset]
               ):
