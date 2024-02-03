@@ -22,3 +22,6 @@ COPY pyproject.toml poetry.lock* /app/
 # Disable virtual env creation by Poetry and install dependencies
 RUN poetry config virtualenvs.create false \
     && poetry install --no-interaction --no-ansi
+
+# Install scikit-learn 1.0 via pip
+RUN pip install scikit-learn==1.0
