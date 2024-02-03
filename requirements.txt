@@ -1,18 +1,18 @@
-# # Some Installed packages in prebuilt training container image
-# # europe-docker.pkg.dev/vertex-ai/training/sklearn-cpu.1-0:latest
-# # sklearn version changed from 1.0.1 to 1.0 to allign with the prediction image
-# google-cloud-bigquery==2.28.1
-# joblib==1.1.0
-# numpy==1.19.5
-# pandas==1.3.3
-# PyYAML==3.13
-# scikit-learn==1.0
-# scipy==1.7.1
-# sympy==1.8
-# xgboost==1.4.2
-# google-cloud-aiplatform
-# shapely<2
-# google-cloud-storage
+# Some Installed packages in prebuilt training container image
+# europe-docker.pkg.dev/vertex-ai/training/sklearn-cpu.1-0:latest
+# sklearn version changed from 1.0.1 to 1.0 to allign with the prediction image
+google-cloud-bigquery==2.28.1
+joblib==1.1.0
+numpy==1.19.5
+pandas==1.3.3
+PyYAML==3.13
+scikit-learn==1.0
+scipy==1.7.1
+sympy==1.8
+xgboost==1.4.2
+google-cloud-aiplatform
+shapely<2
+google-cloud-storage
 
 # Installed packages in prebuilt prediction container image
 # europe-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-3:latest
