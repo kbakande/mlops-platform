@@ -16,7 +16,7 @@ def deploy_model(
     """
     Deploy the optimal model to a Vertex AI endpoint.
     """
-    # Import necessary libraries within the function
+    # Import necessary libraries 
     from google.cloud import aiplatform
     import logging
 
@@ -30,7 +30,6 @@ def deploy_model(
     model_mapping = {
         "decision_tree": dt_model,
         "random_forest": rf_model,
-        # Map additional models if necessary
     }
     model_to_deploy = model_mapping[optimal_model_name]
     model_name = 'pet-adoption'

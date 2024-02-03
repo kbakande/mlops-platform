@@ -4,7 +4,7 @@ from kfp.v2 import dsl
 from typing import NamedTuple
 from kfp.v2.dsl import Dataset, Input, Model, Metrics
 
-@dsl.component(base_image=base_image) #, packages_to_install=["scikit-learn==1.0"])
+@dsl.component(base_image=base_image)
 def evaluate_model(
     test_dataset: Input[Dataset], 
     dt_model: Input[Model],
@@ -13,7 +13,7 @@ def evaluate_model(
     """
     Evaluate models on test data and determine the best one based on accuracy.
     """
-    # Import necessary libraries within the function
+    # Import necessary libraries 
     import pandas as pd
     import joblib
     import sklearn.metrics as skmetrics

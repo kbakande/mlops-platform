@@ -10,7 +10,7 @@ def train_random_forest(
     """
     Train a Random Forest model with Random Search.
     """
-    # Import necessary libraries within the function
+    # Import necessary libraries
     import pandas as pd
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.model_selection import RandomizedSearchCV
