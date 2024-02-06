@@ -3,7 +3,7 @@ from config.config import base_image
 from kfp.v2 import dsl
 from kfp.v2.dsl import Dataset, Input, Output
 
-@dsl.component(base_image=base_image) #, packages_to_install=["scikit-learn==1.0"])
+@dsl.component(base_image=base_image) 
 def preprocess_data(
     input_dataset: Input[Dataset], 
     train_dataset: Output[Dataset],
@@ -13,7 +13,7 @@ def preprocess_data(
     """
     Preprocess data by partitioning it into training and testing sets.
     """
-    # Import necessary libraries within the function
+    # Import necessary libraries 
     import pandas as pd
     from sklearn.model_selection import train_test_split
 

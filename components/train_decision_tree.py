@@ -10,7 +10,7 @@ def train_decision_tree(
     """
     Train a Decision Tree model with Random Search.
     """
-    # Import necessary libraries within the function
+    # Import necessary libraries
     import pandas as pd
     from sklearn.tree import DecisionTreeClassifier
     from sklearn.model_selection import RandomizedSearchCV
