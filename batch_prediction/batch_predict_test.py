@@ -26,7 +26,7 @@ def batch_predict(
     blob = data_bucket.blob(input_data_path)
     input_data_filename = "/tmp/input_data.csv"
     blob.download_to_filename(input_data_filename)
-    input_data = pd.read_csv(input_data_gcs_path).sample(4)
+    input_data = pd.read_csv(input_data_filename).sample(4)
 
     # Preprocess input data
     if target_column:
@@ -40,10 +40,11 @@ def batch_predict(
 
     # Make predictions
     predictions = model.predict(input_data)
+    print("Predictions success!")
+    print(f"prediction: {predictions}")
 
     # Write predictions to BigQuery
     bigquery_client = bigquery.Client(project=project)
-    table_ref = bigquery_client.dataset("your_dataset_name").table("your_table_name")
     job_config = bigquery.LoadJobConfig(
         schema=[
             bigquery.SchemaField("prediction", "FLOAT"),
@@ -58,7 +59,6 @@ def batch_predict(
     job.result()  # Wait for the job to complete
 
     return f"Predictions written to {table_ref}"
-
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
