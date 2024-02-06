@@ -8,7 +8,7 @@ from components.preprocess_data import preprocess_data
 from components.train_random_forest import train_random_forest
 from components.train_decision_tree import train_decision_tree
 from components.evaluate_model import evaluate_model
-# from components.deploy_model import deploy_model
+from components.deploy_model import deploy_model
 from config.config import gcs_url, train_ratio, project_id, region, serving_image, service_account, pipeline_root
 
 @pipeline(
