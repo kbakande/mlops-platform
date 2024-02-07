@@ -1,4 +1,3 @@
-
 from config.config import base_image
 from kfp.v2 import dsl
 from typing import Optional
@@ -15,7 +14,6 @@ def batch_predict(
     Loads data from GCS, obtains predictions, and writes data to BigQuery
     """
 
-    import argparse
     import os
     import pandas as pd
     import joblib
@@ -39,10 +37,10 @@ def batch_predict(
     input_data = pd.read_csv(input_data_filename).sample(4)
 
     # Preprocess input data
-    # if target_column:
-    #     input_data.drop(columns=[target_column], inplace=True, errors="ignore")
-    # else:
-    input_data = input_data.iloc[:, :-1]
+    if target_column:
+        input_data.drop(columns=[target_column], inplace=True, errors="ignore")
+    else:
+        input_data = input_data.iloc[:, :-1]
 
     # Convert categorical columns to 'category' data type
     categorical_cols = input_data.select_dtypes(include=["object"]).columns
@@ -69,17 +67,3 @@ def batch_predict(
     job.result()  # Wait for the job to complete
 
     return f"Predictions written to {table_ref}"
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="Obtain batch prediction from Vertex AI model"
-    )
-    parser.add_argument("--model_gcs_path", required=True, help="Model GCS path")
-    parser.add_argument(
-        "--input_data_gcs_path", required=True, help="Input data GCS path"
-    )
-    parser.add_argument("--table_ref", required=True, help="GCP output data table")
-    parser.add_argument("--project", required=True, help="GCP project name")
-
-    args = parser.parse_args()
-    batch_predict(args.model_gcs_path, args.input_data_gcs_path, args.table_ref, args.project)
