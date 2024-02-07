@@ -5,7 +5,10 @@ import joblib
 from google.cloud import storage, bigquery
 
 def batch_predict(
-    model_gcs_path: str, input_data_gcs_path: str, table_ref: str, project: str, target_column=None
+    model_gcs_path: str, 
+    input_data_gcs_path: str, 
+    table_ref: str, project: str, 
+    target_column=None
 ):
     """
     Loads data from GCS, obtains predictions, and writes data to BigQuery
@@ -73,3 +76,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     batch_predict(args.model_gcs_path, args.input_data_gcs_path, args.table_ref, args.project)
+
+
