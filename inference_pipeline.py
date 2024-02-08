@@ -42,5 +42,5 @@ if __name__ == "__main__":
             "table_ref": table_ref, 
             "project": project_id  
         },
-        enable_caching=False
+        enable_caching=True
     ).submit(service_account=service_account)
