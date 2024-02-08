@@ -65,5 +65,6 @@ def batch_predict(
         job_config=job_config,
     )
     job.result()  # Wait for the job to complete
-
-    return f"Predictions written to {table_ref}"
+    
+    print(type(table_ref))
+    # return f"Predictions written to table_ref"
