@@ -16,17 +16,13 @@ def deploy_model(
     """
     Deploy the optimal model to a Vertex AI endpoint.
     """
-    # Import necessary libraries 
     from google.cloud import aiplatform
     import logging
 
-    # Set up logging
     logging.basicConfig(level=logging.INFO)
 
-    # Initialize the AI Platform client
     aiplatform.init(project=project, location=region)
 
-    # Select the optimal model based on the name
     model_mapping = {
         "decision_tree": dt_model,
         "random_forest": rf_model,
@@ -35,7 +31,7 @@ def deploy_model(
     model_name = 'pet-adoption'
 
     logging.info(f"Model URI: {model_to_deploy.uri}")
-    # Upload model to Vertex AI Model Registry
+
     model_upload = aiplatform.Model.upload(
         display_name=model_name,  
         artifact_uri=model_to_deploy.uri.rpartition('/')[0],
@@ -47,14 +43,12 @@ def deploy_model(
 
     logging.info(f"Model uploaded: {model_upload.resource_name}")
 
-    # Create an endpoint
     endpoint = aiplatform.Endpoint.create(
         display_name=model_name,
         project=project,
         location=region
     )
 
-    # Deploy model to the endpoint
     model_deployed = endpoint.deploy(
         model=model_upload,
         deployed_model_display_name=model_name,
