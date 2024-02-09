@@ -14,7 +14,6 @@ def batch_predict(
     Loads data from GCS, obtains predictions, and writes data to BigQuery
     """
 
-    # Load model from GCS
     storage_client = storage.Client()
     bucket_name, model_path = model_gcs_path.replace("gs://", "").split("/", 1)
     bucket = storage_client.bucket(bucket_name)
@@ -23,7 +22,6 @@ def batch_predict(
     blob.download_to_filename(model_filename)
     model = joblib.load(model_filename)
 
-    # Load input data for prediction
     data_bucket_name, input_data_path = input_data_gcs_path.replace("gs://", "").split("/", 1)
     data_bucket = storage_client.bucket(data_bucket_name)
     blob = data_bucket.blob(input_data_path)
@@ -31,22 +29,18 @@ def batch_predict(
     blob.download_to_filename(input_data_filename)
     input_data = pd.read_csv(input_data_filename).sample(4)
 
-    # Preprocess input data
     if target_column:
         input_data.drop(columns=[target_column], inplace=True, errors="ignore")
     else:
         input_data = input_data.iloc[:, :-1]
 
-    # Convert categorical columns to 'category' data type
     categorical_cols = input_data.select_dtypes(include=["object"]).columns
     input_data[categorical_cols] = input_data[categorical_cols].astype("category")
 
-    # Make predictions
     predictions = model.predict(input_data)
     print("Predictions success!")
     print(f"prediction: {predictions}")
 
-    # Write predictions to BigQuery
     bigquery_client = bigquery.Client(project=project)
     job_config = bigquery.LoadJobConfig(
         schema=[
@@ -59,7 +53,7 @@ def batch_predict(
         table_ref,
         job_config=job_config,
     )
-    job.result()  # Wait for the job to complete
+    job.result() 
 
     return f"Predictions written to {table_ref}"
 
