@@ -11,7 +11,6 @@ run_tests:
 	@echo "Running tests..."
 	pytest tests/
 
-# Clean up temporary files
 clean:
 	@echo "Cleaning up..."
 	find . -type d -name '__pycache__' -exec rm -rf {} +
@@ -20,7 +19,6 @@ clean:
 	find . -type f -name '*~' -exec rm -f {} +
 	find . -type f -name '.pytest_cache' -exec rm -rf {} +
 
-# Display help information
 help:
 	@echo "Makefile commands:"
 	@echo "all            - Run the ML pipeline and tests"

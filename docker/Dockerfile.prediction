@@ -1,4 +1,3 @@
 FROM europe-docker.pkg.dev/vertex-ai/prediction/sklearn-cpu.1-3:latest
 
-# Install missing packages - pandas is missing from above prebuilt image
 RUN pip install pandas

@@ -2,7 +2,6 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
 pipeline_root = os.environ['PIPELINE_ROOT']
@@ -15,3 +14,6 @@ artifact_repo = os.environ['ARTIFACT_REPO']
 gcs_url = os.environ['GCS_URL']
 train_ratio = float(os.environ['TRAIN_RATIO'])
 bucket_name = os.environ['BUCKET_NAME']
+model_gcs_path = os.environ['MODEL_GCS_PATH'] 
+input_data_gcs_path = os.environ['GCS_URL'] 
+table_ref = os.environ['TABLE_REF']

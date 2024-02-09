@@ -18,6 +18,8 @@ env:
   REGION: ${{ secrets.REGION }}
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   SERVICE_ACCOUNT_KEY: ${{ secrets.GCP_SA_KEY }}
+  MODEL_GCS_PATH: ${{ secrets.MODEL_GCS_PATH }}
+  TABLE_REF: ${{ secrets.TABLE_REF }}
 
 jobs:
   deploy:
