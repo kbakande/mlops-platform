@@ -23,14 +23,12 @@ def inference_pipeline(
                                         )
 
 if __name__ == "__main__":
-    # Compiling the pipeline
     pipeline_filename = "inference_pipeline.json"
     compiler.Compiler().compile(
         pipeline_func=inference_pipeline,
         package_path=pipeline_filename
     )
 
-    # Deploying the pipeline to Vertex AI
     from google.cloud import aiplatform
     aiplatform.init(project=project_id, location=region)
     _ = aiplatform.PipelineJob(
