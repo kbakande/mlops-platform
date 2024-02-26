@@ -30,31 +30,49 @@
    ## Project Structure
 
    ```graphql
-   MLOPS-Platform/
-   │
-   ├── components/               # Pipeline components (data load, preprocess, train, etc.)
-   │   ├── load_data.py
-   │   ├── preprocess_data.py
-   │   ├── train_decision_tree.py
-   │   ├── train_random_forest.py
-   │   ├── evaluate_model.py
-   │   └── deploy_model.py
-   │
-   ├── config/                   # Configuration files and settings
-   │   ├── __init__.py
-   │   └── config.py
-   │
-   ├── notebooks/                # Jupyter notebooks for demonstrations and experiments
-   │   └── mlplatform.ipynb
-   │
-   ├── tests/                    # Test scripts for pipeline components
-   │   └── test_mlpipeline.py
-   │
-   ├── mlpipeline.py             # Main pipeline script
-   ├── pyproject.toml            # Project dependencies and configurations
-   ├── poetry.lock               # Poetry lock file for dependencies management
-   ├── Makefile                  # Makefile for easy execution of tasks
-   └── README.md                 # Project overview and documentation
+mlops-platform-main/
+|
+├── .gitignore
+├── README.md
+├── dot.env
+├── inference_pipeline.py
+├── makefile
+├── mlpipeline.py
+├── poetry.lock
+├── pyproject.toml
+├── requirements.txt
+├── .github/
+│   └── workflows/
+│       └── deploy_to_vertex_ai.yml
+├── batch_prediction/
+│   ├── __init__.py
+│   ├── batch_predict.py
+│   └── batch_prediction_test/
+│       ├── Dockerfile.batch
+│       ├── batch_predict_test.py
+│       └── batch_requirements.txt
+├── components/
+│   ├── __init__.py
+│   ├── deploy_model.py
+│   ├── evaluate_model.py
+│   ├── load_data.py
+│   ├── preprocess_data.py
+│   ├── train_decision_tree.py
+│   └── train_random_forest.py
+├── config/
+│   ├── __init__.py
+│   └── config.py
+├── docker/
+│   ├── Dockerfile.poetry
+│   ├── Dockerfile.prediction
+│   └── Dockerfile.requirement
+├── images/
+│   └── mlpipeline.png
+├── notebooks/
+│   ├── batch_predict.ipynb
+│   ├── mlplatform.ipynb
+└── tests/
+    └── test_mlpipeline.py
    ```
    ## Installation
 
