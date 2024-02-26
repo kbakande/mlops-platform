@@ -21,7 +21,7 @@
 
    - `load-data`: Fetches and loads data into the pipeline.
    - `preprocess-data`: Processes the loaded data, preparing it for training.
-   - `train-decision-tree` and `train-random-frost`: Train two separate models in parallel.
+   - `train-decision-tree` and `train-random-forest`: Train two separate models in parallel.
    - `evaluate-model`: Evaluates both models and selects the best performing one.
    - `deploy-model`: Deploys the chosen model to a Vertex AI endpoint for serving.
 
